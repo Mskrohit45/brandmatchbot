@@ -109,7 +109,7 @@ export const StaggeredChildren: React.FC<StaggeredChildrenProps> = ({
   // Clone children and add staggered animation
   const staggeredChildren = React.Children.map(children, (child, index) => {
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, {
+      return React.cloneElement(child as React.ReactElement<any>, {
         className: cn(
           child.props.className,
           isVisible ? `animate-${childAnimation}` : 'opacity-0'

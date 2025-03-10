@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui-custom/Button';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface NavItem {
   label: string;
@@ -19,6 +21,8 @@ const navItems: NavItem[] = [
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
 
   // Handle scroll effect
   useEffect(() => {
@@ -77,20 +81,37 @@ const Navbar: React.FC = () => {
 
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center space-x-4">
-          <Button 
-            variant="outline" 
-            size="sm"
-            className="border-brand-100 hover:bg-brand-50 text-brand-700"
-          >
-            Log In
-          </Button>
-          <Button 
-            variant="primary" 
-            size="sm"
-            className="bg-brand-600 hover:bg-brand-700"
-          >
-            Join Waitlist
-          </Button>
+          {isAuthenticated ? (
+            <Button 
+              variant="primary" 
+              size="sm"
+              className="bg-brand-600 hover:bg-brand-700"
+              onClick={() => navigate('/dashboard')}
+            >
+              Dashboard
+            </Button>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="border-brand-100 hover:bg-brand-50 text-brand-700"
+                >
+                  Log In
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button 
+                  variant="primary" 
+                  size="sm"
+                  className="bg-brand-600 hover:bg-brand-700"
+                >
+                  Join Waitlist
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -121,16 +142,33 @@ const Navbar: React.FC = () => {
               </a>
             ))}
             <div className="flex flex-col space-y-3 pt-4 border-t border-gray-100">
-              <Button variant="outline" fullWidth>
-                Log In
-              </Button>
-              <Button 
-                variant="primary" 
-                fullWidth
-                className="bg-brand-600 hover:bg-brand-700"
-              >
-                Join Waitlist
-              </Button>
+              {isAuthenticated ? (
+                <Button 
+                  variant="primary" 
+                  fullWidth
+                  className="bg-brand-600 hover:bg-brand-700"
+                  onClick={() => navigate('/dashboard')}
+                >
+                  Dashboard
+                </Button>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button variant="outline" fullWidth>
+                      Log In
+                    </Button>
+                  </Link>
+                  <Link to="/register">
+                    <Button 
+                      variant="primary" 
+                      fullWidth
+                      className="bg-brand-600 hover:bg-brand-700"
+                    >
+                      Join Waitlist
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </nav>
         </div>

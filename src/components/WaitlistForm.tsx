@@ -1,8 +1,10 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui-custom/Button';
 import { Check, Loader2 } from 'lucide-react';
 import { AnimatedSection } from './AnimatedSections';
+import { useAuth } from '@/contexts/AuthContext';
 
 const WaitlistForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +12,8 @@ const WaitlistForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,11 +38,10 @@ const WaitlistForm: React.FC = () => {
       setIsSubmitting(false);
       setIsSubmitted(true);
       
-      // Reset form after successful submission
+      // Redirect to registration page after successful submission
       setTimeout(() => {
-        setEmail('');
-        setUserType(null);
-      }, 500);
+        navigate('/register');
+      }, 1500);
     }, 1500);
   };
 
@@ -59,7 +62,27 @@ const WaitlistForm: React.FC = () => {
               </p>
             </div>
             
-            {isSubmitted ? (
+            {isAuthenticated ? (
+              <div className="text-center py-8">
+                <div className="flex justify-center mb-6">
+                  <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                    <Check className="h-8 w-8" />
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">You're Already Registered!</h3>
+                <p className="text-gray-600 max-w-md mx-auto mb-6">
+                  You've already signed up for BrandMatchBot. Access your dashboard to start exploring sponsorship opportunities.
+                </p>
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="bg-brand-600 hover:bg-brand-700"
+                  onClick={() => navigate('/dashboard')}
+                >
+                  Go to Dashboard
+                </Button>
+              </div>
+            ) : isSubmitted ? (
               <div className="text-center py-8">
                 <div className="flex justify-center mb-6">
                   <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center text-green-600">
@@ -70,6 +93,7 @@ const WaitlistForm: React.FC = () => {
                 <p className="text-gray-600 max-w-md mx-auto">
                   You've been added to our waitlist. We'll notify you when we're ready to welcome you to BrandMatchBot.
                 </p>
+                <p className="text-gray-600 mt-4">Redirecting to registration...</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="max-w-md mx-auto">
