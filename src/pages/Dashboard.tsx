@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
@@ -69,9 +68,7 @@ const Dashboard = () => {
   return (
     <DashboardLayout title="Dashboard">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Main Content - 2 cols on large screens */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Welcome Section */}
           <AnimatedSection animation="fade-in" className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-xl text-white p-6">
             <h2 className="text-2xl font-bold mb-2">Welcome back, {user.name}!</h2>
             <p className="mb-4">
@@ -84,7 +81,6 @@ const Dashboard = () => {
             </Button>
           </AnimatedSection>
 
-          {/* Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <AnimatedSection animation="slide-up" delay={1} className="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
               <div className="flex flex-col">
@@ -135,7 +131,6 @@ const Dashboard = () => {
             </AnimatedSection>
           </div>
 
-          {/* Recent Activities */}
           <AnimatedSection animation="fade-in" delay={5} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-6 border-b border-gray-100">
               <h3 className="font-semibold text-gray-900">Recent Activity</h3>
@@ -172,9 +167,7 @@ const Dashboard = () => {
           </AnimatedSection>
         </div>
 
-        {/* Sidebar - 1 col on large screens */}
         <div className="space-y-6">
-          {/* AI Insights Panel (for creators) */}
           {user.role === 'creator' && (
             <AnimatedSection animation="slide-in" className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="p-6 border-b border-gray-100 flex justify-between items-center">
@@ -215,7 +208,6 @@ const Dashboard = () => {
             </AnimatedSection>
           )}
 
-          {/* Top Matches / Opportunities */}
           <AnimatedSection animation="slide-in" delay={1} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-6 border-b border-gray-100">
               <h3 className="font-semibold text-gray-900">
@@ -248,7 +240,7 @@ const Dashboard = () => {
                     </p>
                     <div className="flex justify-between items-center">
                       <span className="text-xs text-gray-500">Posted {new Date(listing.createdAt).toLocaleDateString()}</span>
-                      <Button variant="ghost" size="xs" className="text-brand-600 p-0">
+                      <Button variant="ghost" size="sm" className="text-brand-600 p-0">
                         View <ArrowRight className="ml-1 h-3 w-3" />
                       </Button>
                     </div>
@@ -268,7 +260,6 @@ const Dashboard = () => {
             </div>
           </AnimatedSection>
 
-          {/* Performance Chart (simplified) */}
           <AnimatedSection animation="slide-in" delay={2} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-6 border-b border-gray-100">
               <h3 className="font-semibold text-gray-900">Performance</h3>
