@@ -1,3 +1,4 @@
+
 export interface SponsorshipListing {
   id: string;
   brandId: string;
@@ -24,6 +25,10 @@ export interface SponsorshipListing {
   applications: SponsorshipApplication[];
   createdAt: string;
   expiresAt: string;
+  brandLogo?: string;
+  brandName?: string;
+  aiMatchScore?: number;
+  aiMatchReasons?: string[];
 }
 
 export interface SponsorshipApplication {
@@ -89,4 +94,36 @@ export interface CreatorMetrics {
   likes: number;
   comments: number;
   updatedAt: string;
+}
+
+export interface AiRecommendation {
+  listingId: string;
+  matchScore: number;
+  reasons: string[];
+  suggestedRate?: number;
+}
+
+export interface AiSponsorshipInsight {
+  type: 'tip' | 'warning' | 'opportunity';
+  message: string;
+  actionable: boolean;
+  action?: {
+    label: string;
+    url?: string;
+  };
+}
+
+export interface SponsorshipEarnings {
+  totalEarned: number;
+  pendingPayments: number;
+  thisMonth: number;
+  lastMonth: number;
+  currency: string;
+  recentPayments: {
+    id: string;
+    amount: number;
+    date: string;
+    brandName: string;
+    status: 'pending' | 'paid';
+  }[];
 }
