@@ -1,4 +1,3 @@
-
 export interface SponsorshipListing {
   id: string;
   brandId: string;
@@ -58,4 +57,36 @@ export interface SponsorshipDeal {
   }[];
   createdAt: string;
   completedAt?: string;
+}
+
+export interface AnalyticsData {
+  views: number;
+  clicks: number;
+  conversions: number;
+  revenue: number;
+  engagementRate: number;
+  periodStart: string;
+  periodEnd: string;
+}
+
+export interface CampaignMetrics {
+  id: string;
+  campaignId: string;
+  impressions: number;
+  clicks: number;
+  conversions: number;
+  roi: number;
+  updatedAt: string;
+}
+
+export interface CreatorMetrics {
+  id: string;
+  creatorId: string;
+  platform: 'youtube' | 'instagram' | 'tiktok' | 'twitter';
+  followers: number;
+  engagement: number;
+  views: number;
+  likes: number;
+  comments: number;
+  updatedAt: string;
 }

@@ -10,6 +10,8 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import CreatorDashboard from "./pages/creator/Dashboard";
+import BrandDashboard from "./pages/brand/Dashboard";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -33,7 +35,22 @@ const App = () => (
                 </ProtectedRoute>
               } 
             />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route
+              path="/creator/dashboard"
+              element={
+                <ProtectedRoute requiredRole="creator">
+                  <CreatorDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/brand/dashboard"
+              element={
+                <ProtectedRoute requiredRole="brand">
+                  <BrandDashboard />
+                </ProtectedRoute>
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
